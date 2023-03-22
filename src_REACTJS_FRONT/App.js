@@ -1,7 +1,6 @@
 import { useState } from "react";
-import $ from "jquery";
 import "./App.css";
-  
+
 function App() {
 
 
@@ -18,13 +17,9 @@ function App() {
     };
   
     const handleSubmit = (e) => {
+        
         e.preventDefault();
-
-
-        const form = $(e.target);
-
-        let url = form.attr("action");
-
+        let url = "http://localhost/restAPI/createItem.php";
         var formData = new FormData();
 
         formData.append('name',name);
@@ -72,9 +67,6 @@ function App() {
             <h1>{responseMessage}</h1>
 
         </div>
-
-        
-
     );
 }
   
