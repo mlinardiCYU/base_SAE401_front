@@ -6,7 +6,7 @@ restAPI_CRUD_PHP --> dossier qui contient le back-end (RESTFUL api) qui implemen
 
 src_REACTJS_FRONT --> dossier qui contient le code source de l'app ReactJS qui communique avec le backend restAPI_CRUD_PHP
                       notez que pour le faire tourner dans votre machine vous devez l'ajouter à une application ReactJS 
-                      # exemple en NodeJS : npm init react-app [nom application] + ajoutez les fichier dans src_REACTJS_FRONT )
+                      exemple en NodeJS : npm init react-app [nom application] + ajoutez les fichier dans src_REACTJS_FRONT )
 
 collection de services RESTFUL qui vous pouvez utiliser coté FRONTEND:
 
