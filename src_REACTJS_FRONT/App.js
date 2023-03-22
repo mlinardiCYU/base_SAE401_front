@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-
+  
 function App() {
 
 
@@ -16,10 +16,8 @@ function App() {
             setDescription(e.target.value);
     };
   
-    const handleSubmit = (e) => {
-        
+    const handleSubmit = (e,url) => {
         e.preventDefault();
-        let url = "http://localhost/restAPI/createItem.php";
         var formData = new FormData();
 
         formData.append('name',name);
@@ -40,9 +38,9 @@ function App() {
     return (
         <div className="App">
             <form
-                action="http://localhost/restAPI/createItem.php"
+                action="#"
                 method="post"
-                onSubmit={(event) => handleSubmit(event)}
+                onSubmit={(event) => handleSubmit(event,"http://localhost/restAPI/createItem.php")}
             >
                 <label htmlFor="name">Name: </label>
                 <input
@@ -67,6 +65,9 @@ function App() {
             <h1>{responseMessage}</h1>
 
         </div>
+
+        
+
     );
 }
   
