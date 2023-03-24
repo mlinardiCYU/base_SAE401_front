@@ -20,6 +20,13 @@ Dans cet entrepôt, vous trouvez un exemple (vu en classe) d'application front-e
 **restAPI_CRUD_PHP** --> dossier qui contient le back-end PHP (RESTFUL api) (contient seulement la CREATION d'un ITEM dans une BD MySQL)
 
 **src_REACTJS_FRONT** --> dossier qui contient le code source de l'app ReactJS qui communique avec le backend restAPI_CRUD_PHP. Notez que pour le faire tourner dans votre machine vous devez l'ajouter à une application ReactJS (en NodeJS : npm init react-app [nom application] + ajoutez les fichier du dossier src_REACTJS_FRONT dans le dossier src de votre application ReactJS.)
+Cette application react necessite de plusieurs modules (dependencies):
+
+npm install @mui/material @emotion/react @emotion/styled
+
+npm install @mui/x-data-grid
+
+
 
 # Optionnel
 
