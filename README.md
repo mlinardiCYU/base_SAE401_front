@@ -30,4 +30,5 @@ Dans ce cas, vous devriez prévoir une application ReactJS qui récupère des do
 Ici des ressources utiles pour créer des interfaces captivantes :
 
 https://kinsta.com/blog/react-components-library/
+https://devexpress.github.io/devextreme-reactive/
 
