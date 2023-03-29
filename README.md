@@ -42,3 +42,7 @@ https://kinsta.com/blog/react-components-library/
 https://devexpress.github.io/devextreme-reactive/
 
 https://mui.com/x/react-data-grid/editing/
+
+Dans la documentation MUI, vous trouvez un exemple complet du composant React qui gère le CRUD:
+
+https://mui.com/x/react-data-grid/editing/#full-featured-crud-component
