@@ -122,9 +122,6 @@ export default function StartEditButtonGrid() {
     fetch('http://localhost/restAPI/getItems.php', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
       }).then(response => {return response.json();}).then(jsonArr => {
-        
-        const js = [{id:6,name:"bourse AAA",description:"bourse en cuir"}];
-        console.log(jsonArr);
         setRows(jsonArr);
       });
     
