@@ -2,29 +2,53 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { DataGrid, GridCellModes } from '@mui/x-data-grid';
+import { DataGrid, GridCellModes , useGridApiRef } from '@mui/x-data-grid';
 
 
 
 function EditToolbar(props) {
-  const { selectedCellParams, cellMode, cellModesModel, setCellModesModel } = props;
+  const { selectedCellParams, cellMode, cellModesModel, setCellModesModel, apiRef } = props;
+
 
   const handleSaveOrEdit = () => {
     if (!selectedCellParams) {
       return;
     }
     const { id, field } = selectedCellParams;
+ 
     if (cellMode === 'edit') {
+      // update du composant et du EDIT toolbar
       setCellModesModel({
         ...cellModesModel,
         [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.View } },
       });
+
+
+      // recuperer les donnés à modifier et les envoyer au Backend 
+      const rowUpdated = apiRef.current.getRowWithUpdatedValues(id,field);
+      console.log(rowUpdated)
+
+      // creer le JSON
+      const JSONtoSend = JSON.stringify(rowUpdated)
+
+      // envoyer le JSON au backend (à implementer)
+      fetch("http://localhost/restAPI/updateItem.php", {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        body: JSONtoSend,
+      }).then(response => {return response.json();}).then(json => {
+         alert("le serveur à repondu: --->"+json)
+      }).catch(error => {alert("erreur du serveur: "+error);});
+
     } else {
+
       setCellModesModel({
         ...cellModesModel,
         [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.Edit } },
       });
     }
+
+
+    
   };
 
   const handleCancel = () => {
@@ -40,6 +64,8 @@ function EditToolbar(props) {
       },
     });
   };
+
+
 
   const handleMouseDown = (event) => {
     // Keep the focus in the cell
@@ -75,6 +101,7 @@ function EditToolbar(props) {
   );
 }
 
+
 EditToolbar.propTypes = {
   cellMode: PropTypes.oneOf(['edit', 'view']).isRequired,
   cellModesModel: PropTypes.object.isRequired,
@@ -85,19 +112,21 @@ EditToolbar.propTypes = {
   setCellModesModel: PropTypes.func.isRequired,
 };
 
+
+
 export default function StartEditButtonGrid() {
 
   const [selectedCellParams, setSelectedCellParams] = React.useState(null);
   const [cellModesModel, setCellModesModel] = React.useState({});
-
+  const apiRef = useGridApiRef();
   const [rows, setRows] = React.useState([]);
-
+ 
 
   const handleCellFocus = React.useCallback((event) => {
     const row = event.currentTarget.parentElement;
     const id = row.dataset.id;
     const field = event.currentTarget.dataset.field;
-    setSelectedCellParams({ id, field });
+    setSelectedCellParams({ id, field });    
   }, []);
 
   const cellMode = React.useMemo(() => {
@@ -130,8 +159,6 @@ export default function StartEditButtonGrid() {
 
 
 
-
-  
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
@@ -150,11 +177,13 @@ export default function StartEditButtonGrid() {
             setSelectedCellParams,
             cellModesModel,
             setCellModesModel,
+            apiRef
           },
           cell: {
             onFocus: handleCellFocus,
           },
         }}
+        apiRef={apiRef}
       />
     </div>
   );
@@ -163,5 +192,5 @@ export default function StartEditButtonGrid() {
 const columns = [
   { field: 'id', headerName: 'Id Item', width: 180, editable: false },
   { field: 'name', headerName: 'Name', type: 'text', editable: true },
-  { field: 'description', headerName: 'Description', type: 'text', editable: true }
+  { field: 'description', headerName: 'Description', width: 300, type: 'text', editable: true }
 ];
